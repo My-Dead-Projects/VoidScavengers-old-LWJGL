@@ -8,4 +8,10 @@ public class Ref {
     public static final double aspect_ratio = (double)width / (double)height;
     public static final int target_fps = 60;
   }
+  public static class path_to {
+    private static final String shader_base_path = "src/com/mikefdorst/voidscavengers/view/shader/";
+    public static String shader(String filename) {
+      return shader_base_path + filename;
+    }
+  }
 }
