@@ -8,6 +8,22 @@ public class Quad {
   public Vec2D size;
   public Color color;
   
+  public Vec2D bottomLeft() {
+    return new Vec2D(position.x(), position.y());
+  }
+  
+  public Vec2D bottomRight() {
+    return new Vec2D(position.x() + size.x(), position.y());
+  }
+  
+  public Vec2D topLeft() {
+    return new Vec2D(position.x(), position.y() + size.y());
+  }
+  
+  public Vec2D topRight() {
+    return new Vec2D(position.x() + size.x(), position.y() + size.y());
+  }
+  
   public void move(double x, double y) {
     position.setX(position.x() + x).setY(position.y() + y);
   }
