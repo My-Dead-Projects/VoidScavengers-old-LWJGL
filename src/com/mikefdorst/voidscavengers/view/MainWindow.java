@@ -16,7 +16,7 @@ public class MainWindow implements AutoCloseable {
     
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(Ref.main_window.aspect_ratio, -Ref.main_window.aspect_ratio, 1, -1, -1, 1);
+    glOrtho(-(Ref.main_window.aspect_ratio), Ref.main_window.aspect_ratio, -1, 1, -1, 1);
   }
   
   public void update() {
