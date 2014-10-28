@@ -1,12 +1,11 @@
 package com.mikefdorst.voidscavengers.main;
 
+import com.mikefdorst.voidscavengers.controller.VertexStream;
+import com.mikefdorst.voidscavengers.model.shape.Quad;
 import com.mikefdorst.voidscavengers.util.Ref;
 import com.mikefdorst.voidscavengers.view.MainWindow;
 import com.mikefdorst.voidscavengers.view.Renderer;
 import com.mikefdorst.voidscavengers.view.Shader;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -18,26 +17,11 @@ public class Main {
         new Shader(Ref.path_to.shader("plain_shader.vert"), Ref.path_to.shader("plain_shader.frag"));
       plainShader.use();
       
+      Quad quad = new Quad(0.25, 0.25, 0.25, 0.25, 0.3, 0.3, 1);
       Renderer renderer = new Renderer();
-      List<Float> vertices = new ArrayList<>(6);
-      vertices.add(-0.5f);
-      vertices.add(-0.5f);
-      vertices.add( 0.5f);
-      vertices.add(-0.5f);
-      vertices.add( 0.0f);
-      vertices.add( 0.5f);
-      List<Float> colors = new ArrayList<>(9);
-      colors.add(1f);
-      colors.add(0f);
-      colors.add(0f);
-      colors.add(0f);
-      colors.add(1f);
-      colors.add(0f);
-      colors.add(0f);
-      colors.add(0f);
-      colors.add(1f);
-      
-      renderer.setVertices(vertices).setColors(colors).setRenderMode(GL_TRIANGLES);
+      renderer.setVertices(VertexStream.quadVertices(quad))
+        .setColors(VertexStream.quadColors(quad))
+        .setRenderMode(GL_QUADS);
       
       while (mainWindow.isOpen()) {
         glClear(GL_COLOR_BUFFER_BIT);
