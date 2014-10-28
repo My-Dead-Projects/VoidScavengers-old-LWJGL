@@ -1,7 +1,7 @@
 package com.mikefdorst.voidscavengers.model.shape;
 
-import com.mikefdorst.voidscavengers.model.Color;
-import com.mikefdorst.voidscavengers.model.Vec2D;
+import com.mikefdorst.voidscavengers.model.primitive.Color;
+import com.mikefdorst.voidscavengers.model.primitive.Vec2D;
 
 public class Quad {
   public Vec2D position;

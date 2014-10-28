@@ -1,4 +1,4 @@
-package com.mikefdorst.voidscavengers.model;
+package com.mikefdorst.voidscavengers.model.primitive;
 
 public class Vec2D {
   private float x, y;
