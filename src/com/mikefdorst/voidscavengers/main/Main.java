@@ -1,6 +1,6 @@
 package com.mikefdorst.voidscavengers.main;
 
-import com.mikefdorst.voidscavengers.controller.VertexStream;
+import com.mikefdorst.voidscavengers.model.util.VertexStream;
 import com.mikefdorst.voidscavengers.model.shape.Quad;
 import com.mikefdorst.voidscavengers.util.Ref;
 import com.mikefdorst.voidscavengers.view.MainWindow;

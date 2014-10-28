@@ -1,4 +1,4 @@
-package com.mikefdorst.voidscavengers.controller;
+package com.mikefdorst.voidscavengers.model.util;
 
 import com.mikefdorst.voidscavengers.model.shape.Quad;
 
