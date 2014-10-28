@@ -10,14 +10,13 @@ public class Main {
   public static void main(String[] args) {
     try (MainWindow mainWindow = new MainWindow()) {
       
+      Shader plainShader =
+        new Shader(Ref.path_to.shader("plain_shader.vert"), Ref.path_to.shader("plain_shader.frag"));
+      plainShader.use();
+      
       while (mainWindow.isOpen()) {
         glClear(GL_COLOR_BUFFER_BIT);
         
-        Shader plainShader =
-          new Shader(Ref.path_to.shader("plain_shader.vert"), Ref.path_to.shader("plain_shader.frag"));
-        
-        plainShader.use();
-
         glBegin(GL_TRIANGLES);
         glColor3f(1, 0, 0);
         glVertex2f(-0.5f, -0.5f);
