@@ -8,7 +8,7 @@ public class Quad {
   public Vec2D size;
   public Color color;
   
-  public void move(float x, float y) {
+  public void move(double x, double y) {
     position.setX(position.x() + x).setY(position.y() + y);
   }
   
@@ -42,7 +42,7 @@ public class Quad {
     this.size = size;
   }
   
-  public Quad(float x, float y, float w, float h) {
+  public Quad(double x, double y, double w, double h) {
     init();
     position.setX(x).setX(y);
     size.setX(w).setY(h);
