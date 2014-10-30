@@ -17,7 +17,7 @@ public class Main {
         new Shader(Ref.path_to.shader("plain_shader.vert"), Ref.path_to.shader("plain_shader.frag"));
       plainShader.use();
       
-      Quad quad = new Quad(0.25, 0.25, 0.25, 0.25, 0.3, 0.3, 1);
+      Quad quad = new Quad(0, 0, 0.25, 0.25, 0.3, 0.3, 1);
       Renderer renderer = new Renderer();
       renderer.setVertices(VertexStream.quadVertices(quad))
         .setColors(VertexStream.quadColors(quad))
