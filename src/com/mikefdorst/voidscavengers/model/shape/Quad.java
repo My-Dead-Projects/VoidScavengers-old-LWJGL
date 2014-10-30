@@ -9,19 +9,19 @@ public class Quad {
   public Color color;
   
   public Vec2D bottomLeft() {
-    return new Vec2D(position.x(), position.y());
+    return new Vec2D(position.x() - size.x()/2, position.y() - size.x()/2);
   }
   
   public Vec2D bottomRight() {
-    return new Vec2D(position.x() + size.x(), position.y());
+    return new Vec2D(position.x() + size.x()/2, position.y() - size.x()/2);
   }
   
   public Vec2D topLeft() {
-    return new Vec2D(position.x(), position.y() + size.y());
+    return new Vec2D(position.x() - size.x()/2, position.y() + size.x()/2);
   }
   
   public Vec2D topRight() {
-    return new Vec2D(position.x() + size.x(), position.y() + size.y());
+    return new Vec2D(position.x() + size.x()/2, position.y() + size.x()/2);
   }
   
   public void move(double x, double y) {
@@ -32,13 +32,13 @@ public class Quad {
     return inBounds(vec.x(), vec.y());
   }
   public boolean inBounds(float x, float y) {
-    if (x < position.x())
+    if (x < bottomLeft().x())
       return false;
-    if (y < position.y())
+    if (y < bottomLeft().y())
       return false;
-    if (x > position.x() + size.x())
+    if (x > topRight().x())
       return false;
-    if (y > position.y() + size.y())
+    if (y > topRight().x())
       return false;
     return true;
   }
