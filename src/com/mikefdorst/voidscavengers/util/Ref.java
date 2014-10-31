@@ -14,4 +14,7 @@ public class Ref {
       return shader_base_path + filename;
     }
   }
+  public static class shader {
+    public static final int info_log_max_length = 4096;
+  }
 }

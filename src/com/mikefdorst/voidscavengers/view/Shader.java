@@ -3,6 +3,7 @@ package com.mikefdorst.voidscavengers.view;
 import com.mikefdorst.voidscavengers.exception.FragmentShaderCompilationError;
 import com.mikefdorst.voidscavengers.exception.ShaderCompilationError;
 import com.mikefdorst.voidscavengers.exception.VertexShaderCompilationError;
+import com.mikefdorst.voidscavengers.util.Ref;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -47,10 +48,10 @@ public class Shader implements AutoCloseable {
     glCompileShader(fragmentShaderHandle);
     
     if (glGetShaderi(vertexShaderHandle, GL_COMPILE_STATUS) == GL_FALSE) {
-      throw new VertexShaderCompilationError();
+      throw new VertexShaderCompilationError(glGetShaderInfoLog(vertexShaderHandle, Ref.shader.info_log_max_length));
     }
     if (glGetShaderi(fragmentShaderHandle, GL_COMPILE_STATUS) == GL_FALSE) {
-      throw new FragmentShaderCompilationError();
+      throw new FragmentShaderCompilationError(glGetShaderInfoLog(fragmentShaderHandle, Ref.shader.info_log_max_length));
     }
     
     shaderProgramHandle = glCreateProgram();
