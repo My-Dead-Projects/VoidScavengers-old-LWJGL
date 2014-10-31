@@ -1,4 +1,6 @@
 
+vec4 position;
+
 void main() {
-  gl_Position = ftransform();
+  gl_Position = position;
 }
