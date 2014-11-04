@@ -1,4 +1,4 @@
-package com.mikefdorst.voidscavengers.view;
+package com.mikefdorst.voidscavengers.view.shader;
 
 import com.mikefdorst.voidscavengers.exception.FragmentShaderCompilationError;
 import com.mikefdorst.voidscavengers.exception.ShaderCompilationError;

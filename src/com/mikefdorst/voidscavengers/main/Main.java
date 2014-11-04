@@ -5,7 +5,7 @@ import com.mikefdorst.voidscavengers.model.shape.Quad;
 import com.mikefdorst.voidscavengers.util.Ref;
 import com.mikefdorst.voidscavengers.view.MainWindow;
 import com.mikefdorst.voidscavengers.view.Renderer;
-import com.mikefdorst.voidscavengers.view.Shader;
+import com.mikefdorst.voidscavengers.view.shader.Shader;
 
 import static org.lwjgl.opengl.GL11.*;
 
