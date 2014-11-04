@@ -9,19 +9,19 @@ public class Quad {
   public Color color;
   
   public Vec2D  bottomLeft() {
-    return new Vec2D(position.x() - size.x()/2, position.y() - size.x()/2);
+    return new Vec2D(-size.x()/2, -size.x()/2);
   }
   
   public Vec2D bottomRight() {
-    return new Vec2D(position.x() + size.x()/2, position.y() - size.x()/2);
+    return new Vec2D(+size.x()/2, -size.x()/2);
   }
   
   public Vec2D     topLeft() {
-    return new Vec2D(position.x() - size.x()/2, position.y() + size.x()/2);
+    return new Vec2D(-size.x()/2, +size.x()/2);
   }
   
   public Vec2D    topRight() {
-    return new Vec2D(position.x() + size.x()/2, position.y() + size.x()/2);
+    return new Vec2D(+size.x()/2, +size.x()/2);
   }
   
   public void move(double x, double y) {
