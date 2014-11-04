@@ -17,6 +17,10 @@ public class Shader implements AutoCloseable {
   private int fragmentShaderHandle;
   private int shaderProgramHandle;
   
+  public int getProgramHandle() {
+    return shaderProgramHandle;
+  }
+  
   public void use() {
     glUseProgram(shaderProgramHandle);
   }
