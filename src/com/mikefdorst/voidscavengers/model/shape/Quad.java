@@ -28,21 +28,6 @@ public class Quad {
     position.setX(position.x() + x).setY(position.y() + y);
   }
   
-  public boolean inBounds(Vec2D vec) {
-    return inBounds(vec.x(), vec.y());
-  }
-  public boolean inBounds(float x, float y) {
-    if (x < bottomLeft().x())
-      return false;
-    if (y < bottomLeft().y())
-      return false;
-    if (x > topRight().x())
-      return false;
-    if (y > topRight().x())
-      return false;
-    return true;
-  }
-  
   private void init() {
     position = new Vec2D();
     size = new Vec2D();
