@@ -21,7 +21,8 @@ public class Main {
       Renderer renderer = new Renderer();
       renderer.setVertices(VertexStream.quadVertices(quad))
         .setColors(VertexStream.quadColors(quad))
-        .setRenderMode(GL_QUADS);
+        .setRenderMode(GL_QUADS)
+        .setShader(new PlainShader());
       
       while (mainWindow.isOpen()) {
         glClear(GL_COLOR_BUFFER_BIT);

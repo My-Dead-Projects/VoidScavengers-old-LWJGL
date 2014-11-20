@@ -1,14 +1,16 @@
 package com.mikefdorst.voidscavengers.view;
 
+import com.mikefdorst.voidscavengers.view.shader.Shader;
 import org.lwjgl.BufferUtils;
 
 import java.nio.FloatBuffer;
 import java.util.List;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL11.GL_VERTEX_ARRAY;
-import static org.lwjgl.opengl.GL11.glDisableClientState;
 import static org.lwjgl.opengl.GL15.*;
+import static org.lwjgl.opengl.GL20.*;
+import static org.lwjgl.opengl.GL30.glBindVertexArray;
+import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class Renderer implements AutoCloseable {
   private final int vertexSize = 2;
@@ -17,7 +19,15 @@ public class Renderer implements AutoCloseable {
   private int vertexCount;
   private int vertexBufferHandle;
   private int colorBufferHandle;
+  private int vertexArrayObject;
   private int renderMode = GL_LINE_LOOP;
+  
+  private Shader shader;
+  
+  public Renderer setShader(Shader shader) {
+    this.shader = shader;
+    return this;
+  }
   
   private void setBuffer(int handle, List<Float> elements) {
     FloatBuffer buffer = BufferUtils.createFloatBuffer(elements.size());
@@ -26,9 +36,14 @@ public class Renderer implements AutoCloseable {
     }
     buffer.flip();
     
+    glBindVertexArray(vertexArrayObject);
+    
     glBindBuffer(GL_ARRAY_BUFFER, handle);
     glBufferData(GL_ARRAY_BUFFER, buffer, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, vertexSize, GL_FLOAT, false, 0, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+    
+    glBindVertexArray(0);
   }
   
   public Renderer setVertices(List<Float> vertices) {
@@ -54,20 +69,24 @@ public class Renderer implements AutoCloseable {
   public Renderer() {
     vertexBufferHandle = glGenBuffers();
     colorBufferHandle = glGenBuffers();
+    vertexArrayObject = glGenVertexArrays();
   }
   
   public void render() {
+    shader.use();
+    
+    glBindVertexArray(vertexArrayObject);
+    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
+    
     glBindBuffer(GL_ARRAY_BUFFER, vertexBufferHandle);
-    glVertexPointer(vertexSize, GL_FLOAT, 0, 0);
     
-    glBindBuffer(GL_ARRAY_BUFFER, colorBufferHandle);
-    glColorPointer(colorSize, GL_FLOAT, 0, 0);
-    
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_COLOR_ARRAY);
     glDrawArrays(renderMode, 0, vertexCount);
-    glDisableClientState(GL_COLOR_ARRAY);
-    glDisableClientState(GL_VERTEX_ARRAY);
+    
+    glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
+    glBindVertexArray(0);
+    glUseProgram(0);
   }
   
   @Override
