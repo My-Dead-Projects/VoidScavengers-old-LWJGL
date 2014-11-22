@@ -82,10 +82,10 @@ public class Shader implements AutoCloseable {
     
     /**
      * Bind any attributes needed by the shader.
-     * bindAttributeLocations() should be overridden for each shader,
+     * setup() should be overridden for each shader,
      * as attribute locations are specific to each shader.
      */
-    bindAttributeLocations();
+    setup();
     
     /**
      * Link the shader program
@@ -99,7 +99,7 @@ public class Shader implements AutoCloseable {
     glValidateProgram(shaderProgramHandle);
   }
   
-  public void bindAttributeLocations() {
+  public void setup() {
     
   }
   
