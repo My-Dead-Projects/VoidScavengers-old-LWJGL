@@ -3,21 +3,15 @@ package com.mikefdorst.voidscavengers.view;
 import com.mikefdorst.voidscavengers.exception.ShaderCompilationError;
 import com.mikefdorst.voidscavengers.view.shader.DefaultShader;
 import com.mikefdorst.voidscavengers.view.shader.Shader;
-import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL15;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
-import java.util.List;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL15.*;
-import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
-import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
-import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
-import static org.lwjgl.opengl.GL30.glBindVertexArray;
-import static org.lwjgl.opengl.GL30.glDeleteVertexArrays;
-import static org.lwjgl.opengl.GL30.glGenVertexArrays;
+import static org.lwjgl.opengl.GL20.*;
+import static org.lwjgl.opengl.GL30.*;
 
 public class Renderer implements AutoCloseable {
   private final int vertexSize = 2;
@@ -68,20 +62,12 @@ public class Renderer implements AutoCloseable {
     return this;
   }
   
-  public Renderer setVertices(List<Float> vertices) {
-    FloatBuffer buffer = BufferUtils.createFloatBuffer(vertices.size());
-    for (Float element : vertices) {
-      buffer.put(element);
-    }
+  public Renderer setVertices(FloatBuffer buffer) {
     setBuffer(0, vertexSize, vertexBufferHandle, buffer);
     return this;
   }
   
-  public Renderer setColors(List<Float> colors) {
-    FloatBuffer buffer = BufferUtils.createFloatBuffer(colors.size());
-    for (Float element : colors) {
-      buffer.put(element);
-    }
+  public Renderer setColors(FloatBuffer buffer) {
     setBuffer(1, colorSize, colorBufferHandle, buffer);
     return this;
   }
