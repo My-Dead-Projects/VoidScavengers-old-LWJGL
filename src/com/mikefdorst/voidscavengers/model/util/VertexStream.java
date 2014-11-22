@@ -1,7 +1,9 @@
 package com.mikefdorst.voidscavengers.model.util;
 
 import com.mikefdorst.voidscavengers.model.shape.Quad;
+import org.lwjgl.BufferUtils;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +20,9 @@ public class VertexStream {
     vertices.add(quad.bottomRight().y());
     return vertices;
   }
-  public static List<Byte> quadIndices(Quad quad) {
-    List<Byte> indices = new ArrayList<>(6);
-    for (byte index : new byte[] {0, 1, 2, 2, 3, 0}) {
-      indices.add(index);
-    }
+  public static ByteBuffer quadIndices(Quad quad) {
+    ByteBuffer indices = BufferUtils.createByteBuffer(6);
+    indices.put(new byte[] {0, 1, 2, 2, 3, 0});
     return indices;
   }
   public static List<Float> quadColors(Quad quad) {

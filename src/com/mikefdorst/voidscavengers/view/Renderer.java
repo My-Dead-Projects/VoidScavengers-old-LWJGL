@@ -62,16 +62,12 @@ public class Renderer implements AutoCloseable {
     glBindVertexArray(0);
   }
   
-  public Renderer setIndices(List<Byte> indices) {
-    indexCount = indices.size();
-    ByteBuffer buffer = BufferUtils.createByteBuffer(indices.size());
-    for (Byte index : indices) {
-      buffer.put(index);
-    }
-    buffer.flip();
+  public Renderer setIndices(ByteBuffer indices) {
+    indices.flip();
+    indexCount = indices.remaining();
     
     GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, indexBufferHandle);
-    GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, buffer, GL15.GL_STATIC_DRAW);
+    GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, indices, GL15.GL_STATIC_DRAW);
     GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
     return this;
   }
