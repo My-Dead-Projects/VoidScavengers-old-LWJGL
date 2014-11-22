@@ -15,7 +15,7 @@ import static org.lwjgl.opengl.GL20.*;
 public class Shader implements AutoCloseable {
   private int vertexShaderHandle;
   private int fragmentShaderHandle;
-  private int shaderProgramHandle;
+  protected int shaderProgramHandle;
   
   public void use() {
     glUseProgram(shaderProgramHandle);
