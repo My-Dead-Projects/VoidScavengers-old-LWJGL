@@ -45,11 +45,7 @@ public class Renderer implements AutoCloseable {
     return this;
   }
   
-  private void setBuffer(int attributeIndex, int stride, int handle, List<Float> elements) {
-    FloatBuffer buffer = BufferUtils.createFloatBuffer(elements.size());
-    for (Float element : elements) {
-      buffer.put(element);
-    }
+  private void setBuffer(int attributeIndex, int stride, int handle, FloatBuffer buffer) {
     buffer.flip();
     
     glBindVertexArray(vertexArrayHandle);
@@ -73,12 +69,20 @@ public class Renderer implements AutoCloseable {
   }
   
   public Renderer setVertices(List<Float> vertices) {
-    setBuffer(0, vertexSize, vertexBufferHandle, vertices);
+    FloatBuffer buffer = BufferUtils.createFloatBuffer(vertices.size());
+    for (Float element : vertices) {
+      buffer.put(element);
+    }
+    setBuffer(0, vertexSize, vertexBufferHandle, buffer);
     return this;
   }
   
   public Renderer setColors(List<Float> colors) {
-    setBuffer(1, colorSize, colorBufferHandle, colors);
+    FloatBuffer buffer = BufferUtils.createFloatBuffer(colors.size());
+    for (Float element : colors) {
+      buffer.put(element);
+    }
+    setBuffer(1, colorSize, colorBufferHandle, buffer);
     return this;
   }
   
