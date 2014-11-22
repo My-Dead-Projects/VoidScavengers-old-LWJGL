@@ -3,21 +3,15 @@ package com.mikefdorst.voidscavengers.view;
 import com.mikefdorst.voidscavengers.exception.ShaderCompilationError;
 import com.mikefdorst.voidscavengers.view.shader.DefaultShader;
 import com.mikefdorst.voidscavengers.view.shader.Shader;
-import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL15;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
-import java.util.List;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL15.*;
-import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
-import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
-import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
-import static org.lwjgl.opengl.GL30.glBindVertexArray;
-import static org.lwjgl.opengl.GL30.glDeleteVertexArrays;
-import static org.lwjgl.opengl.GL30.glGenVertexArrays;
+import static org.lwjgl.opengl.GL20.*;
+import static org.lwjgl.opengl.GL30.*;
 
 public class Renderer implements AutoCloseable {
   private final int vertexSize = 2;
@@ -45,43 +39,30 @@ public class Renderer implements AutoCloseable {
     return this;
   }
   
-  private void setBuffer(int attributeIndex, int stride, int handle, List<Float> elements) {
-    FloatBuffer buffer = BufferUtils.createFloatBuffer(elements.size());
-    for (Float element : elements) {
-      buffer.put(element);
-    }
+  private void setBuffer(int attributeIndex, int stride, int handle, FloatBuffer buffer) {
     buffer.flip();
-    
     glBindVertexArray(vertexArrayHandle);
-    
     glBindBuffer(GL_ARRAY_BUFFER, handle);
     glBufferData(GL_ARRAY_BUFFER, buffer, GL_STATIC_DRAW);
     glVertexAttribPointer(attributeIndex, stride, GL_FLOAT, false, 0, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-    
     glBindVertexArray(0);
   }
   
-  public Renderer setIndices(List<Byte> indices) {
-    indexCount = indices.size();
-    ByteBuffer buffer = BufferUtils.createByteBuffer(indices.size());
-    for (Byte index : indices) {
-      buffer.put(index);
-    }
+  public Renderer setIndices(ByteBuffer buffer) {
     buffer.flip();
-    
     GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, indexBufferHandle);
     GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, buffer, GL15.GL_STATIC_DRAW);
     GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
     return this;
   }
   
-  public Renderer setVertices(List<Float> vertices) {
+  public Renderer setVertices(FloatBuffer vertices) {
     setBuffer(0, vertexSize, vertexBufferHandle, vertices);
     return this;
   }
   
-  public Renderer setColors(List<Float> colors) {
+  public Renderer setColors(FloatBuffer colors) {
     setBuffer(1, colorSize, colorBufferHandle, colors);
     return this;
   }
