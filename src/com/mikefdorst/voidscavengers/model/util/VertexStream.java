@@ -1,36 +1,37 @@
 package com.mikefdorst.voidscavengers.model.util;
 
 import com.mikefdorst.voidscavengers.model.shape.Quad;
-import org.lwjgl.BufferUtils;
 
-import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VertexStream {
-  public static FloatBuffer quadVertices(Quad quad) {
-    FloatBuffer buffer = BufferUtils.createFloatBuffer(8);
-    buffer.put(quad.bottomLeft().x());
-    buffer.put(quad.bottomLeft().y());
-    buffer.put(quad.topLeft().x());
-    buffer.put(quad.topLeft().y());
-    buffer.put(quad.topRight().x());
-    buffer.put(quad.topRight().y());
-    buffer.put(quad.bottomRight().x());
-    buffer.put(quad.bottomRight().y());
-    return buffer;
+  public static List<Float> quadVertices(Quad quad) {
+    List<Float> vertices = new ArrayList<>(8);
+    vertices.add(quad.bottomLeft().x());
+    vertices.add(quad.bottomLeft().y());
+    vertices.add(quad.topLeft().x());
+    vertices.add(quad.topLeft().y());
+    vertices.add(quad.topRight().x());
+    vertices.add(quad.topRight().y());
+    vertices.add(quad.bottomRight().x());
+    vertices.add(quad.bottomRight().y());
+    return vertices;
   }
-  public static ByteBuffer quadIndices(Quad quad) {
-    ByteBuffer buffer = BufferUtils.createByteBuffer(6);
-    buffer.put(new byte[] {0, 1, 2, 2, 3, 0});
-    return buffer;
-  }
-  public static FloatBuffer quadColors(Quad quad) {
-    FloatBuffer buffer = BufferUtils.createFloatBuffer(12);
-    for (int i = 0; i < 4; i++) {
-      buffer.put(quad.color.red());
-      buffer.put(quad.color.green());
-      buffer.put(quad.color.blue());
+  public static List<Byte> quadIndices(Quad quad) {
+    List<Byte> indices = new ArrayList<>(6);
+    for (byte index : new byte[] {0, 1, 2, 2, 3, 0}) {
+      indices.add(index);
     }
-    return buffer;
+    return indices;
+  }
+  public static List<Float> quadColors(Quad quad) {
+    List<Float> colors = new ArrayList<>(12);
+    for (int i = 0; i < 4; i++) {
+      colors.add(quad.color.red());
+      colors.add(quad.color.green());
+      colors.add(quad.color.blue());
+    }
+    return colors;
   }
 }
