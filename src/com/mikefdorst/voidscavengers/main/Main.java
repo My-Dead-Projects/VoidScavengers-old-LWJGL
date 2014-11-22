@@ -4,7 +4,7 @@ import com.mikefdorst.voidscavengers.model.shape.Quad;
 import com.mikefdorst.voidscavengers.model.util.VertexStream;
 import com.mikefdorst.voidscavengers.view.MainWindow;
 import com.mikefdorst.voidscavengers.view.Renderer;
-import com.mikefdorst.voidscavengers.view.shader.PlainShader;
+import com.mikefdorst.voidscavengers.view.shader.DefaultShader;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -18,7 +18,7 @@ public class Main {
         .setColors(VertexStream.quadColors(quad))
         .setIndices(VertexStream.quadIndices(quad))
         .setRenderMode(GL_TRIANGLES)
-        .setShader(new PlainShader());
+        .setShader(new DefaultShader());
       
       while (mainWindow.isOpen()) {
         glClear(GL_COLOR_BUFFER_BIT);

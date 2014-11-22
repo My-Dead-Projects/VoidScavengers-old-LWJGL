@@ -1,7 +1,7 @@
 package com.mikefdorst.voidscavengers.view;
 
 import com.mikefdorst.voidscavengers.exception.ShaderCompilationError;
-import com.mikefdorst.voidscavengers.view.shader.PlainShader;
+import com.mikefdorst.voidscavengers.view.shader.DefaultShader;
 import com.mikefdorst.voidscavengers.view.shader.Shader;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL15;
@@ -37,7 +37,7 @@ public class Renderer implements AutoCloseable {
     vertexBufferHandle = glGenBuffers();
     colorBufferHandle = glGenBuffers();
     indexBufferHandle = glGenBuffers();
-    shader = new PlainShader();
+    shader = new DefaultShader();
   }
   
   public Renderer setShader(Shader shader) {
