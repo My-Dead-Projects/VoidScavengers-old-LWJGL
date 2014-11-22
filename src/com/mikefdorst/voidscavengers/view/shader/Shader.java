@@ -16,6 +16,11 @@ public class Shader implements AutoCloseable {
   private int vertexShaderHandle;
   private int fragmentShaderHandle;
   private int shaderProgramHandle;
+  private int translationLocation;
+  
+  public int getTranslationLocation() {
+    return translationLocation;
+  }
   
   public int getProgramHandle() {
     return shaderProgramHandle;
@@ -26,8 +31,16 @@ public class Shader implements AutoCloseable {
   }
   
   public Shader(String vertexShaderSourcePath, String fragmentShaderSourcePath) throws ShaderCompilationError {
+    
+    /**
+     * Create shader objects and store their handles
+     */
     vertexShaderHandle = glCreateShader(GL_VERTEX_SHADER);
     fragmentShaderHandle = glCreateShader(GL_FRAGMENT_SHADER);
+    
+    /**
+     * Read in vertex shader source and store it in the vertex shader object
+     */
     StringBuilder source = new StringBuilder();
     try (BufferedReader reader = new BufferedReader(new FileReader(vertexShaderSourcePath))) {
       String line;
@@ -38,6 +51,10 @@ public class Shader implements AutoCloseable {
       e.printStackTrace();
     }
     glShaderSource(vertexShaderHandle, source);
+    
+    /**
+     * Read in fragment shader source and store it in the fragment shader object
+     */
     source = new StringBuilder();
     try (BufferedReader reader = new BufferedReader(new FileReader(fragmentShaderSourcePath))) {
       String line;
@@ -48,9 +65,16 @@ public class Shader implements AutoCloseable {
       e.printStackTrace();
     }
     glShaderSource(fragmentShaderHandle, source);
+    
+    /**
+     * Compile shaders
+     */
     glCompileShader(vertexShaderHandle);
     glCompileShader(fragmentShaderHandle);
     
+    /**
+     * Poll for compile errors
+     */
     if (glGetShaderi(vertexShaderHandle, GL_COMPILE_STATUS) == GL_FALSE) {
       throw new VertexShaderCompilationError(glGetShaderInfoLog(vertexShaderHandle, Ref.shader.info_log_max_length));
     }
@@ -58,13 +82,36 @@ public class Shader implements AutoCloseable {
       throw new FragmentShaderCompilationError(glGetShaderInfoLog(fragmentShaderHandle, Ref.shader.info_log_max_length));
     }
     
+    /**
+     * Create a shader program, store its handle, and attatch the compiled shaders to it
+     */
     shaderProgramHandle = glCreateProgram();
     glAttachShader(shaderProgramHandle, vertexShaderHandle);
     glAttachShader(shaderProgramHandle, fragmentShaderHandle);
+    
+    /**
+     * Bind any attributes needed by the shader.
+     * bindAttributeLocations() should be overridden for each shader,
+     * as attribute locations are specific to each shader.
+     */
+    bindAttributeLocations();
+    
+    /**
+     * Link the shader program
+     */
+    // TODO: Poll for errors after linking and validating the program.
     glLinkProgram(shaderProgramHandle);
+    
+    /**
+     * Validate the shader program
+     */
     glValidateProgram(shaderProgramHandle);
   }
-
+  
+  public void bindAttributeLocations() {
+    
+  }
+  
   @Override
   public void close() throws Exception {
     glDeleteShader(vertexShaderHandle);

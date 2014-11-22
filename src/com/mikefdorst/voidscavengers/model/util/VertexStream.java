@@ -18,6 +18,13 @@ public class VertexStream {
     vertices.add(quad.bottomRight().y());
     return vertices;
   }
+  public static List<Byte> quadIndices(Quad quad) {
+    List<Byte> indices = new ArrayList<>(6);
+    for (byte index : new byte[] {0, 1, 2, 2, 3, 0}) {
+      indices.add(index);
+    }
+    return indices;
+  }
   public static List<Float> quadColors(Quad quad) {
     List<Float> colors = new ArrayList<>(12);
     for (int i = 0; i < 4; i++) {
