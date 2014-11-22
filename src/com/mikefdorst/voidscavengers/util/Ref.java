@@ -16,6 +16,5 @@ public class Ref {
   }
   public static class shader {
     public static final int info_log_max_length = 4096;
-    public static final String translation_var_name = "translation";
   }
 }

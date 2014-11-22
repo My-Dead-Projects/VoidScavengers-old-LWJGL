@@ -16,15 +16,6 @@ public class Shader implements AutoCloseable {
   private int vertexShaderHandle;
   private int fragmentShaderHandle;
   private int shaderProgramHandle;
-  private int translationLocation;
-  
-  public int getTranslationLocation() {
-    return translationLocation;
-  }
-  
-  public int getProgramHandle() {
-    return shaderProgramHandle;
-  }
   
   public void use() {
     glUseProgram(shaderProgramHandle);
@@ -83,7 +74,7 @@ public class Shader implements AutoCloseable {
     }
     
     /**
-     * Create a shader program, store its handle, and attatch the compiled shaders to it
+     * Create a shader program, store its handle, and attach the compiled shaders to it
      */
     shaderProgramHandle = glCreateProgram();
     glAttachShader(shaderProgramHandle, vertexShaderHandle);
